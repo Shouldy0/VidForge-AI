@@ -1,0 +1,21 @@
+name: Supabase CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: supabase/cli-github-action@v1
+      with:
+        supabase_project_id: ${{ secrets.SUPABASE_PROJECT_ID }}
+        supabase_access_token: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        supabase_db_password: ${{ secrets.SUPABASE_DB_PASSWORD }}
+    - name: Push database migrations
+      run: supabase db push --project ${{ secrets.SUPABASE_PROJECT_ID }}
+    - name: Deploy Edge Functions
+      run: supabase functions deploy --all --project ${{ secrets.SUPABASE_PROJECT_ID }}
+    # Note: Scheduled functions are registered upon deploy if schedules are defined

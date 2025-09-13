@@ -1,0 +1,19 @@
+{
+  "name": "@vidforge/shared",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src --ext .ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@vidforge/eslint-config": "workspace:*",
+    "@vidforge/typescript-config": "workspace:*",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
+  }
+}

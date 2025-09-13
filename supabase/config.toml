@@ -1,0 +1,111 @@
+# A string used to distinguish different Supabase projects on the same host. Defaults to the
+# working directory name when running `supabase init`.
+project_id = "vidforge"
+
+[api]
+port = 54321
+schemas = ["public", "jobs", "graphql_public"]
+extra_search_path = ["public", "jobs"]
+max_rows = 1000
+
+[auth]
+# Key file for signing JWTs. Path relative to `supabase` directory.
+jwt_key_path = "jwt.key"
+# Use pre-defined map of claims to JWT fields
+enable_anon_sign_ins = true
+enable_signup = true
+# Configure JWT expiry
+jwt_default_group_key = "role"
+jwt_expiry = 3600
+# Configure which external providers, such as oauth, are enabled. Each provider
+# requires configuration in `config.toml` under the specific [auth.external.provider_name]
+# section.
+enabled_sign_providers = []
+
+[auth.external.apple]
+enabled = true
+client_id = "..."
+secret = "..."
+# If you configured a custom URL for your app, you can ignore `redirect_uri`
+redirect_uri = ""
+# Overrides the default auth redirectUrl.
+additional_redirect_urls = ["https://localhost:3000"]
+
+[auth.external.azure]
+enabled = false
+client_id = "..."
+secret = "..."
+# If you configured a custom URL for your app, you can ignore `redirect_uri`
+redirect_uri = ""
+# Overrides the default auth redirectUrl.
+additional_redirect_urls = ["https://localhost:3000"]
+
+[auth.external.github]
+enabled = true
+client_id = "..."
+secret = "..."
+# If you configured a custom URL for your app, you can ignore `redirect_uri`
+redirect_uri = ""
+# Overrides the default auth redirectUrl.
+additional_redirect_urls = ["https://localhost:3000"]
+
+[auth.external.gitlab]
+enabled = false
+client_id = "..."
+secret = "..."
+
+[auth.external.keycloak]
+enabled = false
+client_id = "..."
+secret = "..."
+url = "https://localhost:8080"
+
+[auth.external.google]
+enabled = true
+client_id = "..."
+secret = "..."
+# If you configured a custom URL for your app, you can ignore `redirect_uri`
+redirect_uri = ""
+# Overrides the default auth redirectUrl.
+additional_redirect_urls = ["https://localhost:3000"]
+
+[db]
+# Port to use for the local database URL.
+port = 54322
+# Port used by db diff command to initialize the shadow database.
+shadow_port = 54320
+# The database major version to use. This has to be indicated until we support auto-detection of major version
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+# Email testing server. Emails sent with the local dev setup are not actually sent - rather, they
+# are monitored, and you can view the emails that would have been sent from the web interface.
+[inbucket]
+enabled = true
+# Where inbucket will be hosted.
+port = 54324
+
+[storage]
+enabled = true
+# Path to storage file, path should be absolute
+file_size_limit = "50MiB"
+
+# See: https://supabase.com/docs/guides/storage/uploads/resumable-uploads#resumable-upload-configuration
+[storage.resumable_uploads]
+# Maximum size in bytes of individual chunks. 5 MB by default.
+chunk_size = 5242880
+# Maximum number of retries. 32 by default.
+max_retries = 32
+
+[edge_functions]
+enabled = true
+# Configure one of these blocks for each deployment environment
+[edge_functions.deno_runtime]
+base_port = 54325
+
+[functions]
+enabled = true
+path = "functions"

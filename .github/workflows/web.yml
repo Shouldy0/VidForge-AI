@@ -1,0 +1,68 @@
+name: Web CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'pnpm'
+    - run: pnpm install
+    - run: pnpm --filter @vidforge/web build
+    - run: pnpm --filter @vidforge/web lint
+    # Note: Add test script if needed
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: test-and-build
+    steps:
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'pnpm'
+    - run: pnpm install
+    - run: pnpm --filter @vidforge/web build
+    - name: Deploy to Vercel
+      id: vercel-deploy
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-args: '--prod'
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+    outputs:
+      deployment-url: ${{ steps.vercel-deploy.outputs.deployment-url }} # Assuming the action provides this
+
+  e2e:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'pnpm'
+    - run: pnpm install
+    - run: pnpm --filter @vidforge/web install-browsers
+    - name: Run E2E tests
+      run: pnpm --filter @vidforge/web test:e2e
+      env:
+        BASE_URL: ${{ needs.deploy.outputs.deployment-url }}

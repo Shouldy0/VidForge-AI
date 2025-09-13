@@ -1,0 +1,43 @@
+{
+  "name": "@vidforge/web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test:e2e": "playwright test",
+    "install-browsers": "playwright install"
+  },
+  "dependencies": {
+    "@supabase/auth-helpers-nextjs": "^0.9.0",
+    "@supabase/auth-helpers-react": "^0.4.2",
+    "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/supabase-js": "^2.39.3",
+    "@vidforge/shared": "workspace:*",
+    "next": "^14.0.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@tanstack/react-query": "^5.17.15",
+    "lucide-react": "^0.294.0",
+    "tailwindcss": "^3.3.0",
+    "stripe": "^14.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@playwright/test": "^1.40.0",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "^14.0.0",
+    "postcss": "^8",
+    "@vidforge/eslint-config": "workspace:*",
+    "@vidforge/typescript-config": "workspace:*",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  }
+}

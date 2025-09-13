@@ -1,0 +1,24 @@
+{
+  "name": "@vidforge/ai",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src --ext .ts",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@vidforge/eslint-config": "workspace:*",
+    "@vidforge/typescript-config": "workspace:*",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@vidforge/shared": "workspace:*",
+    "@google-cloud/aiplatform": "^3.24.0",
+    "@google/generative-ai": "^0.12.0",
+    "@google-cloud/text-to-speech": "^5.0.0",
+    "zod": "^3.22.4"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "pnpm --filter @vidforge/web build",
+  "devCommand": "pnpm --filter @vidforge/web dev",
+  "installCommand": "pnpm install"
+}
